@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JSON Interop</title>
+  </head>
+  <body>
+    <script type="module">
+      import init, { parse, parse_serde_wasm_bindgen } from "./pkg/json_interop.js";
+
+      async function run() {
+        await init();
+
+        for (let i = 0; i < 100000; i++) {
+          const message = {
+            device_id: "device123",
+            message: [1, 19, 20],
+          };
+          parse(message);
+        }
+
+        for (let i = 0; i < 100000; i++) {
+          const message = {
+            device_id: "device123",
+            message: [1, 19, 20],
+          };
+          parse_serde_wasm_bindgen(message);
+        }
+      }
+
+      run();
+    </script>
+  </body>
+</html>
